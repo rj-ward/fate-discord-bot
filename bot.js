@@ -1,14 +1,20 @@
+
+
 // Initialize dotenv
-require('dotenv').config();
+require("dotenv").config();
 
-// Discord.js versions ^13.0 require us to explicitly define client intents
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+// Require the necessary discord.js classes
+const { Client, GatewayIntentBits } = require('discord.js');
 
-client.on('ready', () => {
- console.log(`Logged in as ${client.user.tag}!`);
+// Create a new client instance
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+// When the client is ready, run this code (only once)
+client.once('ready', () => {
+	console.log('Ready!');
 });
 
-// Log In our bot
-client.login(process.env.DISCORD_TOKEN);
+// Login to Discord with your client's token
+client.login(DISCORD_TOKEN);
+
 
