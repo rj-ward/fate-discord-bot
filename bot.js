@@ -1,8 +1,8 @@
 require('dotenv').config(); //initialize dotenv
-const Discord = require('discord.js'); //import discord.js
+const { Client, GatewayIntentBits } = require('discord.js');
 
-const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds] }); //create new client
-
+// Create a new client instance
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
