@@ -1,7 +1,19 @@
 {
-    "dependencies": {
-      "discord.js": "^14.6.0",
-      "dotenv": "^16.0.3"
-    }
-  }
-  
+  "name": "fate-discord-bot",
+  "version": "0.0.1",
+  "description": "A Fate RPG Campaign management discord bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rj-ward/fate-discord-bot.git"
+  },
+  "author": "Remy Ward",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rj-ward/fate-discord-bot/issues"
+  },
+  "homepage": "https://github.com/rj-ward/fate-discord-bot#readme"
+}

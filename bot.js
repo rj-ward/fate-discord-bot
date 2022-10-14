@@ -1,20 +1,11 @@
+require('dotenv').config(); //initialize dotenv
+const Discord = require('discord.js'); //import discord.js
 
+const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds] }); //create new client
 
-// Initialize dotenv
-require("dotenv").config();
-
-// Require the necessary discord.js classes
-const { Client, GatewayIntentBits } = require('discord.js');
-
-// Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-// When the client is ready, run this code (only once)
-client.once('ready', () => {
-	console.log('Ready!');
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 });
 
-// Login to Discord with your client's token
-client.login(DISCORD_TOKEN);
-
-
+//make sure this line is the last line
+client.login(process.env.DISCORD_TOKEN); //login bot using token
