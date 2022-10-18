@@ -7,9 +7,6 @@ const commands = [];
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
-rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands })
-	.then(data => console.log(`Successfully registered ${data.length} application commands.`))
-	.catch(console.error);
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -26,6 +23,9 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
   commands.push(command.data.toJSON());
 }
+rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands })
+	.then(data => console.log(`Successfully registered ${data.length} application commands.`))
+	.catch(console.error);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
