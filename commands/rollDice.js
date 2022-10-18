@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('discord.js');
 function rollDice(modifier) {
     var total = 0;
     for (let index = 0; index < 4; index++) {
-        var roll = round(random() * 2) - 1;
+        var roll = Math.round(Math.random() * 2) - 1;
         total += roll
     };
-    
+
     var result = total + modifier;
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
