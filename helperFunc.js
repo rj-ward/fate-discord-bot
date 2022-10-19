@@ -80,4 +80,10 @@ function rollDice(modifier) {
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
 
-module.exports = { add }
+module.exports = { 
+    createChar, 
+    findCharID, 
+    adjustFatePoint, 
+    viewFatePoints, 
+    rollDice 
+}
