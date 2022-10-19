@@ -8,7 +8,7 @@ const con = mysql.createConnection({
   });
 
 
-export function createChar(name, refresh, current) {
+function createChar(name, refresh, current) {
     con.connect(function(err) {
         if (err) throw err;
         console.log("Connected!");
@@ -21,7 +21,7 @@ export function createChar(name, refresh, current) {
       });
 };
 
-export function findCharID(name) {
+function findCharID(name) {
     con.connect(function(err) {
         if (err) throw err;
         var sql = "SELECT id FROM character WHERE name = ?"
@@ -33,7 +33,7 @@ export function findCharID(name) {
       });
 };
 
-export function adjustFatePoint(id, value) {
+function adjustFatePoint(id, value) {
     con.connect(function(err) {
         if (err) throw err;
         var sql = "UPDATE character SET currentfp = ? WHERE id = ?";
@@ -45,7 +45,7 @@ export function adjustFatePoint(id, value) {
       });
 };
 
-export function adjustRefresh(id, value) {
+function adjustRefresh(id, value) {
     con.connect(function(err) {
         if (err) throw err;
         var sql = "UPDATE character SET refresh = ? WHERE id = ?";
@@ -57,7 +57,7 @@ export function adjustRefresh(id, value) {
       });
 };
 
-export function viewFatePoints(id){
+function viewFatePoints(id){
     con.connect(function(err) {
         if (err) throw err;
         var sql = "SELECT currentfp FROM character WHERE name = ?"
@@ -69,7 +69,7 @@ export function viewFatePoints(id){
       });
 };
 
-export function rollDice(modifier) {
+function rollDice(modifier) {
     var total = 0;
     for (let index = 0; index < 4; index++) {
         var roll = Math.round(Math.random() * 2) - 1;
@@ -79,3 +79,5 @@ export function rollDice(modifier) {
     var result = total + modifier;
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
+
+module.exports = { add }

@@ -1,6 +1,6 @@
 import { rollDice } from '../helperFunc';
 const { SlashCommandBuilder } = require('discord.js');
-
+const func = require("../helperFunc");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,7 +12,7 @@ module.exports = {
 				.setDescription('The modifier to the roll.')),
 	async execute(interaction) {
         const modifier = interaction.options.getNumber('modifier');
-        var result = rollDice(modifier);
+        var result = func.rollDice(modifier);
 		await interaction.reply(result);
 	},
 };
