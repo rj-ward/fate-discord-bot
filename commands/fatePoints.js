@@ -92,8 +92,10 @@ module.exports = {
                 .setRequired(true))
         ,
 	async execute(interaction) {
-        const modifier = interaction.options.getNumber('modifier');
-        var result = rollDice(modifier);
+        const name = interaction.options.getString('charname');
+        const refresh = interaction.options.getString('refresh');
+        const currentfp = interaction.options.getString('current');
+        var result = createChar(name, refresh, currentfp);
 		await interaction.reply(result);
 	},
 
