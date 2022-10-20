@@ -85,5 +85,6 @@ module.exports = {
     findCharID, 
     adjustFatePoint, 
     viewFatePoints, 
-    rollDice 
+    rollDice, 
+    con
 }

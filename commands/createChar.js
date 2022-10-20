@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-
-
+const func = require("../helperFunc")
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -24,8 +23,8 @@ module.exports = {
         ,
 	async execute(interaction) {
         const name = interaction.options.getString('charname');
-        const refresh = interaction.options.getString('refresh');
-        const currentfp = interaction.options.getString('current');
+        const refresh = interaction.options.getNumber('refresh');
+        const currentfp = interaction.options.getNumber('current');
         var result = createChar(name, refresh, currentfp);
 		await interaction.reply(result);
 	},
