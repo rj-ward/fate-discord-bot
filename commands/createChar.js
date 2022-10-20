@@ -22,11 +22,13 @@ module.exports = {
                 .setRequired(true))
         ,
 	async execute(interaction) {
+        await interaction.deferReply();
         const name = interaction.options.getString('charname');
         const refresh = interaction.options.getNumber('refresh');
         const currentfp = interaction.options.getNumber('current');
-        var result = createChar(name, refresh, currentfp);
-		await interaction.reply(result);
+        var result = func.createChar(name, refresh, currentfp);
+		await interaction.editReply(result);
+        
 	},
 
 };

@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/rj-ward/fate-discord-bot/issues"
   },
-  "homepage": "https://github.com/rj-ward/fate-discord-bot#readme"
+  "homepage": "https://github.com/rj-ward/fate-discord-bot#readme",
+  "dependencies": {
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3"
+  }
 }

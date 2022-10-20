@@ -1,11 +1,9 @@
-const mysql = require('mysql');
+const { Sequelize } = require('sequelize');
 
-const con = mysql.createConnection({
-    host: process.env.DB_ADDRESS,
-    user: process.env.DB_USER,
-    password: process.env.DB_PW,
-    database: process.env.DB_DATABASE
-  });
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PW, {
+  host: process.env.DB_HOST,
+  dialect: 'mysql'
+});
 
 
 function createChar(name, refresh, current) {
