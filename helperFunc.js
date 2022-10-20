@@ -5,20 +5,37 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
   dialect: 'mysql'
 });
 
+const Character = sequelize.define('character', {
+	id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	refresh: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+  currentfp: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	}
+}, {
+  tableName: 'character'
+});
 
-function createChar(name, refresh, current) {
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-        var sql = `INSERT INTO character (name, refresh, currentfp) VALUES (${name}, ${refresh}, ${current})`;
-        con.query(sql, function (err, result) {
-          if (err) throw err;
-          console.log("1 record inserted");
-          return "Character created!"
-        });
-      });
+
+async function createChar(name, refresh, current) {
+    const newChar = await Character.create({ name: name, refresh: refresh, currentfp: current, createdAt: Date.now(), updatedAt: Date.now()});
+    console.log("Jane's auto-generated ID:", newChar.id);
+    return newChar.name + " has been created!"
 };
-
+/* 
 function findCharID(name) {
     con.connect(function(err) {
         if (err) throw err;
@@ -77,12 +94,12 @@ function rollDice(modifier) {
     var result = total + modifier;
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
-
+ */
 module.exports = { 
     createChar, 
-    findCharID, 
-    adjustFatePoint, 
-    viewFatePoints, 
-    rollDice, 
-    con
+    // findCharID, 
+    // adjustFatePoint, 
+    // viewFatePoints, 
+    // rollDice, 
+    // con
 }

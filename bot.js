@@ -6,7 +6,8 @@ const { Client,
         GatewayIntentBits, 
         REST, 
         Routes, 
-        Collection } = require('discord.js');
+        Collection,
+        Events } = require('discord.js');
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PW, {
@@ -29,6 +30,29 @@ const commands = [];
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
+const Character = sequelize.define('character', {
+	id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	refresh: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+  currentfp: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	}
+}, {
+  tableName: 'character'
+});
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -49,7 +73,8 @@ rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands })
 	.then(data => console.log(`Successfully registered ${data.length} application commands.`))
 	.catch(console.error);
 
-client.on('ready', () => {
+client.once(Events.ClientReady, () => {
+  Character.sync();
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
