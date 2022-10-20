@@ -2,7 +2,11 @@ require('dotenv').config(); //initialize dotenv
 const mysql = require("mysql")
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, REST, Routes, Collection } = require('discord.js');
+const { Client, 
+        GatewayIntentBits, 
+        REST, 
+        Routes, 
+        Collection } = require('discord.js');
 
 const con = mysql.createConnection({
   host: process.env.DB_ADDRESS,
