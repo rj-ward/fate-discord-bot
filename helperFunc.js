@@ -80,7 +80,7 @@ async function viewFatePoints(name){
     console.log(errorText);
     return false;
   } else {
-    value = char.getDataValue('currentfp')
+    value = char.getDataValue('currentfp');
   };
 };
 
@@ -95,6 +95,7 @@ async function refreshChar(name) {
     if (refresh > char.getDataValue('currentfp')) {
       char.setDataValue('currentfp', refresh);
     }
+    return true;
   };
 }
 
@@ -116,5 +117,6 @@ module.exports = {
     adjustRefresh,
     viewFatePoints, 
     rollDice, 
+    refreshChar
    
 }
