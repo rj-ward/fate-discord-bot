@@ -31,58 +31,72 @@ const Character = sequelize.define('character', {
 
 
 async function createChar(name, refresh, current) {
-    const newChar = await Character.create({ name: name, refresh: refresh, currentfp: current, createdAt: Date.now(), updatedAt: Date.now()});
-    console.log("Jane's auto-generated ID:", newChar.id);
-    return newChar.name + " has been created!"
-};
-/* 
-function findCharID(name) {
-    con.connect(function(err) {
-        if (err) throw err;
-        var sql = "SELECT id FROM character WHERE name = ?"
-        con.query(sql, [name], function (err, result) {
-          if (err) throw err;
-          console.log(result);
-          return result[0].id
-        });
-      });
+    const check = await Character.findOne({ where: { name: name } });
+    if (check === null) {
+        const newChar = await Character.create({ name: name, refresh: refresh, currentfp: current, createdAt: Date.now(), updatedAt: Date.now()});
+        console.log(newChar.name, " auto-generated ID:", newChar.id);
+        return true;
+    } else return false;
 };
 
-function adjustFatePoint(id, value) {
-    con.connect(function(err) {
-        if (err) throw err;
-        var sql = "UPDATE character SET currentfp = ? WHERE id = ?";
-        con.query(sql, [value, id], function (err, result) {
-          if (err) throw err;
-          console.log(result.affectedRows + " record(s) updated");
-          return "Total updated to " + value
-        });
-      });
+async function findCharID(name) {
+  const charId = await Character.findOne({ where: { name: name } });
+  if (charId === null) {
+    const errorText = "No character found.";
+    console.log(errorText);
+    return errorText;
+  } else return charId.id;
+};
+;
+
+async function adjustFatePoint(name, value) {
+  const char = await Character.findOne({ where: { name: name } });
+  if (char === null) {
+    const errorText = "No character found.";
+    console.log(errorText);
+    return false;
+  } else {
+      char.setDataValue('currentfp', value);
+      return true;
+  };
 };
 
-function adjustRefresh(id, value) {
-    con.connect(function(err) {
-        if (err) throw err;
-        var sql = "UPDATE character SET refresh = ? WHERE id = ?";
-        con.query(sql, [value, id], function (err, result) {
-          if (err) throw err;
-          console.log(result.affectedRows + " record(s) updated");
-          return "Total updated to " + value
-        });
-      });
+async function adjustRefresh(name, value) {
+  const char = await Character.findOne({ where: { name: name } });
+  if (char === null) {
+    const errorText = "No character found.";
+    console.log(errorText);
+    return false;
+  } else {
+      char.setDataValue('refresh', value);
+      return true;
+  };
 };
 
-function viewFatePoints(id){
-    con.connect(function(err) {
-        if (err) throw err;
-        var sql = "SELECT currentfp FROM character WHERE name = ?"
-        con.query(sql, [name], function (err, result) {
-          if (err) throw err;
-          console.log(result);
-          return result[0].currentfp
-        });
-      });
+async function viewFatePoints(name){
+  const char = await Character.findOne({ where: { name: name } });
+  if (char === null) {
+    const errorText = "No character found.";
+    console.log(errorText);
+    return false;
+  } else {
+    value = char.getDataValue('currentfp')
+  };
 };
+
+async function refreshChar(name) {
+  const char = await Character.findOne({ where: { name: name } });
+  if (char === null) {
+    const errorText = "No character found.";
+    console.log(errorText);
+    return false;
+  } else {
+    refresh = char.getDataValue('refresh');
+    if (refresh > char.getDataValue('currentfp')) {
+      char.setDataValue('currentfp', refresh);
+    }
+  };
+}
 
 function rollDice(modifier) {
     var total = 0;
@@ -94,12 +108,13 @@ function rollDice(modifier) {
     var result = total + modifier;
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
- */
+
 module.exports = { 
     createChar, 
-    // findCharID, 
-    // adjustFatePoint, 
-    // viewFatePoints, 
-    // rollDice, 
-    // con
+    findCharID, 
+    adjustFatePoint, 
+    adjustRefresh,
+    viewFatePoints, 
+    rollDice, 
+   
 }

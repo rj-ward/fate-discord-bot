@@ -26,8 +26,13 @@ module.exports = {
         const name = interaction.options.getString('charname');
         const refresh = interaction.options.getNumber('refresh');
         const currentfp = interaction.options.getNumber('current');
-        var result = func.createChar(name, refresh, currentfp);
-		await interaction.editReply(result);
+        var success = func.createChar(name, refresh, currentfp);
+        if (success) {
+            await interaction.editReply("Character created!");
+        } else {
+            await interaction.editReply("Character not created.");
+        }
+		
         
 	},
 
