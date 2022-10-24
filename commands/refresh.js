@@ -16,7 +16,7 @@ module.exports = {
         const name = interaction.options.getString('charname');
         var success = func.refreshChar(name);
         if (success) {
-            await interaction.editReply("Fate pints refreshed!");
+            await interaction.editReply("Fate points refreshed!");
         } else {
             await interaction.editReply("Something went wrong...");
         };

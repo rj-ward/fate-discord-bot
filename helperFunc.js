@@ -110,6 +110,25 @@ function rollDice(modifier) {
     return "Result: " + total + " + " + modifier + " = " + result + ".";
 };
 
+class Scene {
+  constructor(name) {
+    this.name = name;
+    this.zones = [];
+    this.aspects = [];
+  };
+};
+
+class Zone {
+  constructor(name) {
+    this.name = name;
+    this.aspects = [];
+  };
+};
+
+function viewScene(scene) {
+  
+};
+
 module.exports = { 
     createChar, 
     findCharID, 

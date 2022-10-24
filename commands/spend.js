@@ -17,7 +17,7 @@ module.exports = {
         const fatePoints = func.viewFatePoints(name);
         var success = func.adjustFatePoint(fatePoints - 1);
         if (success) {
-            await interaction.editReply("You spent a fate point!");
+            await interaction.editReply("You spent a fate point! Fate points remaining: " + func.viewFatePoints(name));
         } else {
             await interaction.editReply("Something went wrong...");
         };
